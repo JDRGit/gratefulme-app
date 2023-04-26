@@ -129,11 +129,11 @@ export default function Home({ articles }) {
     <>
       <Head>
         <title>
-          Wellness App - Software designer, founder, and amateur astronaut
+          GratefulMe App 
         </title>
         <meta
           name="description"
-          content="I’m Jaime, a software engineer. I’m the founder and CEO of Wellness App, where we develop technologies that empower regular people to explore space on their own terms."
+          content="I’m Jaime, a software engineer. I’m the creator of GratefulMe App, to empower regular people to live healthy lives."
         />
       </Head>
       <Container className="mt-9">
