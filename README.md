@@ -2,7 +2,7 @@
 
 Web application designed to promote a healthy lifestyle and gratitude for various aspects of well-being. The app covers essential health topics such as nutrition, exercise, sleep, stress management, mental health, social connections, and preventive care. Each section provides valuable information, resources, and tips sourced from reputable organizations to help users maintain a balanced and healthy lifestyle. By fostering a sense of gratitude for different aspects of well-being, Wellness Gratitude aims to inspire users to make positive changes and appreciate the value of a healthy lifestyle.
 
-![GratefulMe App Screenshot](.src/images/GratefulMe.png)
+![GratefulMe App Screenshot](./src/images/GratefulMe.png)
 ## Live Demo
 
 Check out the live demo of the GratefulMe App at [https://jaimedrodriguezgratefulme.netlify.app/](https://jaimedrodriguezgratefulme.netlify.app/).
