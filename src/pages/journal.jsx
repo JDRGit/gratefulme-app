@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
@@ -26,10 +26,23 @@ function Tool({ title, href, children }) {
 }
 
 export default function Journal() {
-  const [entry, setEntry] = useState('')
-  const [journalEntries, setJournalEntries] = useState([])
-  const [editingEntry, setEditingEntry] = useState(null)
-  const [editingIndex, setEditingIndex] = useState(-1)
+  const [entry, setEntry] = useState('');
+  const [journalEntries, setJournalEntries] = useState([]);
+  const [editingEntry, setEditingEntry] = useState(null);
+  const [editingIndex, setEditingIndex] = useState(-1);
+
+  useEffect(() => {
+    setJournalEntries(loadInitialState());
+  }, []);
+
+  const loadInitialState = () => {
+    if (typeof window === 'undefined') {
+      return [];
+    }
+
+    const entries = localStorage.getItem('journalEntries');
+    return entries ? JSON.parse(entries) : [];
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -39,6 +52,7 @@ export default function Journal() {
       journalEntries.push(entry)
     }
     setJournalEntries([...journalEntries])
+    localStorage.setItem('journalEntries', JSON.stringify(journalEntries))
     setEntry('')
     setEditingEntry(null)
     setEditingIndex(-1)
@@ -53,6 +67,7 @@ export default function Journal() {
   const handleDelete = (index) => {
     const updatedEntries = journalEntries.filter((_, i) => i !== index)
     setJournalEntries(updatedEntries)
+    localStorage.setItem('journalEntries', JSON.stringify(updatedEntries))
   }
 
   return (
@@ -152,16 +167,24 @@ export default function Journal() {
                 Your Entries
               </h3>
               <ul className="mt-4 space-y-4">
-            {journalEntries.map((entry, index) => (
-              <li key={index} className="text-sm flex justify-between items-center">
-                {entry}
-                <div>
-                  <button onClick={() => handleEdit(index)} className="mr-2">
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(index)}>Delete</button>
-                </div>
-              </li>
+                {journalEntries.map((entry, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center justify-between text-sm"
+                  >
+                    {entry}
+                    <div>
+                      <button
+                        onClick={() => handleEdit(index)}
+                        className="mr-2"
+                      >
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(index)}>
+                        Delete
+                      </button>
+                    </div>
+                  </li>
                 ))}
               </ul>
             </div>
