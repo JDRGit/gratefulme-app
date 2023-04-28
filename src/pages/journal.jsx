@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
@@ -26,23 +26,23 @@ function Tool({ title, href, children }) {
 }
 
 export default function Journal() {
-  const [entry, setEntry] = useState('');
-  const [journalEntries, setJournalEntries] = useState([]);
-  const [editingEntry, setEditingEntry] = useState(null);
-  const [editingIndex, setEditingIndex] = useState(-1);
+  const [entry, setEntry] = useState('')
+  const [journalEntries, setJournalEntries] = useState([])
+  const [editingEntry, setEditingEntry] = useState(null)
+  const [editingIndex, setEditingIndex] = useState(-1)
 
   useEffect(() => {
-    setJournalEntries(loadInitialState());
-  }, []);
+    setJournalEntries(loadInitialState())
+  }, [])
 
   const loadInitialState = () => {
     if (typeof window === 'undefined') {
-      return [];
+      return []
     }
 
-    const entries = localStorage.getItem('journalEntries');
-    return entries ? JSON.parse(entries) : [];
-  };
+    const entries = localStorage.getItem('journalEntries')
+    return entries ? JSON.parse(entries) : []
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -137,7 +137,7 @@ export default function Journal() {
               <div>
                 <label
                   htmlFor="entry"
-                  className="flex ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10"
+                  className="flex ring-zinc-900/5 backdrop-blur dark:text-gray-100 dark:ring-white/10"
                 >
                   What's on your mind
                 </label>
@@ -146,7 +146,7 @@ export default function Journal() {
                     id="entry"
                     name="entry"
                     rows="2"
-                    className="w-full rounded-md border-gray-500"
+                    className="w-full rounded-md border-gray-500 bg-white dark:bg-gray-800 dark:text-gray-100"
                     value={entry}
                     onChange={(e) => setEntry(e.target.value)}
                     required
@@ -162,28 +162,41 @@ export default function Journal() {
                 </button>
               </div>
             </form>
+
             <div className="mt-8">
-              <h3 className="flex text-sm font-medium  ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+              <h3 className="flex text-sm font-medium  ring-zinc-900/5 backdrop-blur  dark:text-gray-100 dark:ring-white/10">
                 Your Entries
               </h3>
               <ul className="mt-4 space-y-4">
                 {journalEntries.map((entry, index) => (
                   <li
                     key={index}
-                    className="flex items-center justify-between text-sm"
+                    className="flex items-center justify-between rounded-lg bg-white p-4 text-sm shadow-md dark:bg-gray-800"
                   >
-                    {entry}
-                    <div>
+                    <p className="font-medium text-gray-800 dark:text-gray-100">
+                      {entry}
+                    </p>
+                    <div className="space-x-2">
                       <button
                         onClick={() => handleEdit(index)}
-                        className="mr-2"
+                        className="inline-flex items-center rounded bg-blue-100 px-3 py-1 text-sm font-medium text-blue-600 hover:bg-blue-200"
                       >
-                        Edit
+                        <span>Edit</span>
                       </button>
-                      <button onClick={() => handleDelete(index)}>
-                        Delete
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="inline-flex items-center rounded bg-red-100 px-3 py-1 text-sm font-medium text-red-600 hover:bg-red-200"
+                      >
+                        <span>Delete</span>
                       </button>
                     </div>
+                    <blockquote className="mt-4 text-center text-2xl font-semibold italic text-slate-900 dark:text-gray-100">
+                      Congratulations
+                      <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:bg-pink-500">
+                        <span className="relative text-white">you</span>
+                      </span>
+                      did it.
+                    </blockquote>
                   </li>
                 ))}
               </ul>
